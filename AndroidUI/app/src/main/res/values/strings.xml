@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AndroidUI</string>
+    <string name="button_1">Go to activity 1</string>
+    <string name="button_2">Go to activity 2</string>
+    <string name="button_3">Go to activity 3</string>
+    <string name="button_4">Go to activity 4</string>
+    <string name="act_1">Click Here To Add To Grid</string>
+    <string name="act_2">Click Here To Add To List</string>
+    <string name="act_3">Activity 3</string>
+    <string name="act3_but_inc">Inc.</string>
+    <string name="act3_but_dec">Dec.</string>
+    <string name="act_4">Activity 4</string>
+</resources>
