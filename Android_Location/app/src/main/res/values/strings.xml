@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Location Logger</string>
+    <string name="main_text_prompt">Click to enter log text</string>
+    <string name="submit_log__button_text">Submit Log</string>
+    <string name="view_logs_button_text">View Logs</string>
+    <string name="blank_string"> </string>
+    <string name="saved">Saved</string>
+</resources>
