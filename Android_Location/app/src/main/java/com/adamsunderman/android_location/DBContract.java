@@ -2,9 +2,7 @@ package com.adamsunderman.android_location;
 
 import android.provider.BaseColumns;
 
-/**
- * Created by Adam on 5/20/2017.
- */
+
 
 final class DBContract {
     private DBContract(){};

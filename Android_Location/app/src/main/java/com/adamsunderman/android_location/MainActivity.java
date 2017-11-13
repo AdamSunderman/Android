@@ -29,14 +29,14 @@ public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient googleApiClient;
-    private LocationRequest locationRequest;
-    private Location lastLocation;
+    private LocationRequest mLocationRequest;
+    private Location mLastLocation;
     private double lat;
     private double lon;
     private String text;
     private EditText inputText;
     private TextView logSubmitButton;
-    private LocationListener locationListener;
+    private LocationListener mLocationListener;
     private static final int LOCATION_PERMISSION_RESULT = 17;
 
     SQLiteExample mSQLiteExample;
@@ -63,11 +63,11 @@ public class MainActivity extends AppCompatActivity implements
                     .addApi(LocationServices.API)
                     .build();
         }
-        locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(5000);
-        locationRequest.setFastestInterval(5000);
-        locationListener = new LocationListener() {
+        mLocationRequest = LocationRequest.create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(1000);
+        mLocationRequest.setFastestInterval(1000);
+        mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 if (location != null) {
@@ -159,12 +159,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        if (ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_RESULT);
-            lon = -123.291;
-            lat = 44.5019;
             return;
         }
         updateLocation();
@@ -172,16 +169,13 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onConnectionSuspended(int i) {
-        lon = -123.291;
-        lat = 44.5019;
+
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        lon = -123.291;
-        lat = 44.5019;
         Dialog errDialog = GoogleApiAvailability.getInstance().getErrorDialog(this, connectionResult.getErrorCode(), 0);
-        //errDialog.show();
+        errDialog.show();
     }
 
     @Override
@@ -190,24 +184,22 @@ public class MainActivity extends AppCompatActivity implements
             if(grantResults.length > 0){
                 updateLocation();
             }
-
         }
-        //updateLocation();
     }
 
     private void updateLocation() {
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             lon = -123.291;
             lat = 44.5019;
             return;
         }
-        lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-
-        if(lastLocation != null){
-            lon = lastLocation.getLongitude();
-            lat = lastLocation.getLatitude();
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+        if(mLastLocation != null){
+            lon = mLastLocation.getLongitude();
+            lat = mLastLocation.getLatitude();
         } else {
-            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, locationListener);
+            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, mLocationRequest, mLocationListener);
         }
     }
 }
