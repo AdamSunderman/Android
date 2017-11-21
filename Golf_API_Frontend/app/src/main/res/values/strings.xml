@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Golf_API_Frontend</string>
+    <string name="home_players_button">Go Browse Players</string>
+    <string name="home_signup_button">Add A New Player</string>
+</resources>
